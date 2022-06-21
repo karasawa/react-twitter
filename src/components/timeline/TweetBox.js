@@ -2,7 +2,7 @@ import { Avatar, Button } from "@mui/material";
 import React, { useState } from "react";
 import "./TweetBox.css";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import db from "../../firebase";
+import { db } from "../../firebase";
 
 function TweetBox() {
   const [tweetMessage, setTweetMessage] = useState("");
@@ -51,6 +51,7 @@ function TweetBox() {
           className="tweetBox--tweetButton"
           type="submit"
           onClick={sendTweet}
+          disabled={tweetMessage ? false : true}
         >
           ツイートする
         </Button>

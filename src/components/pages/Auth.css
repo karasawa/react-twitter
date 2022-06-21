@@ -1,0 +1,90 @@
+.auth {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth--header > h2 {
+    color: gray;
+    margin: 0;
+    font-size: 23px;
+    font-weight: 600;
+}
+
+.auth--icon {
+    display: flex;
+    justify-content: center;
+}
+
+.auth--twitterIcon {
+    color: var(--twitter-color) !important;
+    font-size: 30px !important;
+}
+
+.auth--input {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px;
+    padding-top: 0;
+    height: 250px;
+    width: 400px;
+}
+
+.auth--input > input {
+    padding: 13px;
+    border: 1px solid var(--twitter-background);
+    border-radius: 10px;
+    outline: none;
+}
+
+.auth--input > a {
+    color: var(--twitter-color);
+    cursor: pointer;
+}
+
+.auth--buttonContainer {
+    display: flex;
+    justify-content: right;
+}
+
+.auth--passChangeButton {
+    color: var(--twitter-color) !important;
+    background-color: #fff !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+}
+
+.auth--loginButton {
+    background-color: var(--twitter-color) !important;
+    color: #fff !important;
+    padding: 8px !important;
+    border-radius: 10px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+}
+
+.auth--footer {
+    display: flex;
+    align-items: center;
+}
+
+.auth--footer > h2 {
+    color: gray;
+    margin: 0;
+    padding: 5px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.auth--toggleButton {
+    color: var(--twitter-color) !important;
+    background-color: #fff !important;
+    margin: 0 !important;
+    padding: 5px !important;
+    font-size: 17px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+}

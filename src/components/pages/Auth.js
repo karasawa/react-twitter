@@ -1,0 +1,97 @@
+import React, { useState } from "react";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import { Button } from "@mui/material";
+import "./Auth.css";
+import { auth } from "../../firebase";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+
+function Auth() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLogin, setIsLogin] = useState(true);
+
+  const navigate = useNavigate();
+
+  const loginOrRegister = async (e) => {
+    await e.preventDefault();
+    if (isLogin) {
+      signInWithEmailAndPassword(auth, email, password)
+        .then((a) => {
+          navigate("/home");
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    } else {
+      await createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          console.log(userCredential);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+      setIsLogin(true);
+    }
+  };
+
+  return (
+    <div className="auth">
+      <div className="auth--header">
+        <h2>Twitterにログイン</h2>
+      </div>
+      <div>
+        <form>
+          <div className="auth--input">
+            <div className="auth--icon">
+              <TwitterIcon className="auth--twitterIcon" />
+            </div>
+            <input
+              placeholder="メールアドレス"
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            ></input>
+            <input
+              placeholder="パスワード"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            ></input>
+            {isLogin ? (
+              <div className="auth--buttonContainer">
+                <Button className="auth--passChangeButton" type="button">
+                  パスワードを忘れた場合はこちら
+                </Button>
+              </div>
+            ) : (
+              <></>
+            )}
+            <Button
+              className="auth--loginButton"
+              type="submit"
+              onClick={loginOrRegister}
+            >
+              {isLogin ? "ログイン" : "新規作成"}
+            </Button>
+          </div>
+        </form>
+      </div>
+      <div className="auth--footer">
+        {isLogin ? <h2>アカウントをお持ちでない場合</h2> : <></>}
+        <Button
+          className="auth--toggleButton"
+          type="button"
+          onClick={() => setIsLogin(!isLogin)}
+        >
+          {isLogin ? "アカウント作成" : "ログイン画面へ戻る"}
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+export default Auth;

@@ -1,0 +1,11 @@
+.profile {
+    flex: 0.45;
+}
+
+.profile--editButton {
+    background-color: #fff !important;
+    color: var(--twitter-color) !important;
+    border: 2px solid var(--twitter-color) !important;
+    border-radius: 20px !important;
+    font-weight: 600 !important;
+}
