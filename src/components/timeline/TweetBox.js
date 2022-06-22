@@ -3,10 +3,14 @@ import React, { useState } from "react";
 import "./TweetBox.css";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase";
+import { useRecoilValue } from "recoil";
+import { currentUserState } from "../../recoil/atom";
 
 function TweetBox() {
   const [tweetMessage, setTweetMessage] = useState("");
   const [tweetImage, setTweetImage] = useState("");
+
+  const currentUser = useRecoilValue(currentUserState);
 
   const sendTweet = async (e) => {
     await e.preventDefault();
@@ -19,6 +23,7 @@ function TweetBox() {
         avator: "http://shincode.info/wp-content/uploads/2021/12/icon.png",
         image: tweetImage,
         timestamp: serverTimestamp(),
+        sender: currentUser.uid,
       });
       await console.log("Create success");
     } catch (e) {

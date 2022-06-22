@@ -8,6 +8,8 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
+import { currentUserState } from "../../recoil/atom";
 
 function Auth() {
   const [email, setEmail] = useState("");
@@ -16,11 +18,14 @@ function Auth() {
 
   const navigate = useNavigate();
 
+  const setCurrentUser = useSetRecoilState(currentUserState);
+
   const loginOrRegister = async (e) => {
     await e.preventDefault();
     if (isLogin) {
       signInWithEmailAndPassword(auth, email, password)
-        .then((a) => {
+        .then(async (userCredential) => {
+          await setCurrentUser({ uid: userCredential.user.uid });
           navigate("/home");
         })
         .catch((error) => {

@@ -24,7 +24,6 @@ function Sidebar() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log(user.uid);
-        console.log(location.pathname);
       } else {
         logOut();
       }

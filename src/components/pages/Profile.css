@@ -1,5 +1,14 @@
 .profile {
-    flex: 0.45;
+    flex: 0.45; 
+    border-right: 1px solid var(--twitter-background);
+}
+
+.profile--avator {
+    width: 110px !important;
+    height: 110px !important;
+    position: absolute !important;
+    margin-top: 10px !important;
+    margin-left: 10px !important;
 }
 
 .profile--editButton {
@@ -8,4 +17,94 @@
     border: 2px solid var(--twitter-color) !important;
     border-radius: 20px !important;
     font-weight: 600 !important;
+    margin-left: auto !important;
+}
+
+.profile--mainContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 80px;
+    padding-left: 10px;
+    border-bottom: 8px solid var(--twitter-background);
+
+}
+
+.profile--mainContainer > h3 {
+    margin: 0;
+    margin-top: 5px;
+    font-size: 20px;
+}
+
+.profile--mainContainer > h4 {
+    margin: 8px 0;
+    font-size: 14px;
+    color: gray;
+    font-weight: 500;
+}
+
+.profile--badge {
+    font-size: 14px !important;
+    color: var(--twitter-color);
+}
+
+.profile--headerSpecial {
+    font-size: 12px;
+    font-weight: 600;
+    color: gray;
+    display: flex;
+    align-items: center;
+}
+
+.profile--roomLinkIcon {
+    display: flex;
+}
+
+.profile--roomIcon{
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+}
+
+.profile--room {
+    height: 14px !important;
+    width: 14px !important;
+    color: gray !important;
+}
+
+.profile--linkIcon{
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.profile--linkIcon > a {
+    text-decoration: none;
+    color: var(--twitter-color);
+}
+
+.profile--link {
+    height: 14px !important;
+    width: 14px !important;
+    color: gray !important;
+}
+
+.profile--calenderIcon {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+}
+
+.profile--calender {
+    height: 14px !important;
+    width: 14px !important;
+    color: gray !important;
+}
+
+.profile--follow > h4 {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 8px 0;
+    color: gray;
 }
