@@ -6,3 +6,8 @@ export const currentUserState = atom({
     uid: "",
   },
 });
+
+export const dialogState = atom({
+  key: "dialogState",
+  default: "",
+});

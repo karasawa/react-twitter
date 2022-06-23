@@ -17,24 +17,41 @@ import {
   orderBy,
   where,
   onSnapshot,
+  getDoc,
+  doc,
 } from "firebase/firestore";
 import { useRecoilValue } from "recoil";
 import { currentUserState } from "../../recoil/atom";
+import Dialog from "../modal/Dialog";
+import { useLocation } from "react-router-dom";
 
 function Profile() {
   const [posts, setPosts] = useState([]);
+  const [profile, setProfile] = useState({});
+  const [open, setOpen] = useState(false);
 
   const currentUser = useRecoilValue(currentUserState);
+  const uid = currentUser.uid;
+
+  const location = useLocation();
+  const path = location.pathname;
 
   useEffect(() => {
     const postData = collection(db, "posts");
     const q = query(
       postData,
-      where("sender", "==", currentUser.uid),
+      where("sender", "==", uid),
       orderBy("timestamp", "desc")
     );
     onSnapshot(q, (querySnapshot) => {
       setPosts(querySnapshot.docs.map((doc) => doc.data()));
+    });
+    const docRef = doc(db, "user", uid);
+    getDoc(docRef).then((snapShot) => {
+      setProfile(snapShot.data());
+    });
+    onSnapshot(docRef, (snapShot) => {
+      setProfile(snapShot.data());
     });
   }, []);
 
@@ -47,17 +64,18 @@ function Profile() {
           <Avatar className="profile--avator" />
         </div>
         <div className="profile--mainContainer">
-          <Button className="profile--editButton">プロフィールを編集</Button>
-          <h3>バズライター</h3>
+          <Button className="profile--editButton" onClick={() => setOpen(true)}>
+            プロフィールを編集
+          </Button>
+          <h3>{profile.username}</h3>
           <span className="profile--headerSpecial">
-            <VerifiedUser className="profile--badge" />
-            @bazwriter
+            <VerifiedUser className="profile--badge" />@{profile.username}
           </span>
-          <h4>誰かの役に立つような素敵なコンテンツを作成しています。</h4>
+          <h4>{profile.introduction}</h4>
           <div className="profile--roomLinkIcon">
             <div className="profile--roomIcon">
               <RoomIcon className="profile--room" />
-              名古屋県名古屋市
+              {profile.address}
             </div>
             <div className="profile--linkIcon">
               <LinkIcon className="profile--link" />
@@ -89,6 +107,14 @@ function Profile() {
         </FlipMove>
       </div>
       <Widgets />
+      <Dialog
+        open={open}
+        setOpen={setOpen}
+        path={path}
+        firstValue={profile.username}
+        secondValue={profile.introduction}
+        thirdValue={profile.address}
+      />
     </>
   );
 }
