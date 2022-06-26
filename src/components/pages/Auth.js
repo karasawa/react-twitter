@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { Button } from "@mui/material";
 import "./Auth.css";
-import { auth } from "../../firebase";
+import { db, auth } from "../../firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -10,6 +10,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { currentUserState } from "../../recoil/atom";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 
 function Auth() {
   const [email, setEmail] = useState("");
@@ -33,8 +34,16 @@ function Auth() {
         });
     } else {
       await createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          console.log(userCredential);
+        .then(async (userCredential) => {
+          console.log(userCredential.user.uid);
+          const uid = await userCredential.user.uid;
+          const userDocRef = await doc(db, "user", uid);
+          await setDoc(userDocRef, {
+            username: "",
+            introduction: "",
+            address: "",
+            timestamp: serverTimestamp(),
+          });
         })
         .catch((error) => {
           console.log(error.message);

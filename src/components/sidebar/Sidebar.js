@@ -14,11 +14,15 @@ import "./Sidebar.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import { auth } from "../../firebase";
 import { signOut, onAuthStateChanged } from "firebase/auth";
+import { useSetRecoilState } from "recoil";
+import { otherUserState } from "../../recoil/atom";
 
 function Sidebar() {
   const navigate = useNavigate();
   const location = useLocation();
   const path = location.pathname;
+
+  const setOtherUser = useSetRecoilState(otherUserState);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -33,6 +37,7 @@ function Sidebar() {
   const logOut = () => {
     signOut(auth)
       .then(() => {
+        setOtherUser({ uid: "" });
         console.log("signout");
         navigate("/");
       })
@@ -51,7 +56,10 @@ function Sidebar() {
         text="ホーム"
         Icon={HomeIcon}
         active={path === "/home" ? true : false}
-        event={() => navigate("/home")}
+        event={() => {
+          setOtherUser({ uid: "" });
+          navigate("/home");
+        }}
       />
       <SidebarOption text="話題を検索" Icon={SearchIcon} />
       <SidebarOption text="通知" Icon={NotificationsNoneIcon} />
@@ -61,7 +69,10 @@ function Sidebar() {
         text="プロフィール"
         Icon={PermIdentityIcon}
         active={path === "/profile" ? true : false}
-        event={() => navigate("/profile")}
+        event={() => {
+          setOtherUser({ uid: "" });
+          navigate("/profile");
+        }}
       />
       <SidebarOption text="もっとみる" Icon={MoreHorizIcon} />
       {/* ツイートボタン */}

@@ -1,7 +1,13 @@
 import { Avatar, Button } from "@mui/material";
 import React, { useState } from "react";
 import "./TweetBox.css";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  doc,
+  getDoc,
+} from "firebase/firestore";
 import { db } from "../../firebase";
 import { useRecoilValue } from "recoil";
 import { currentUserState } from "../../recoil/atom";
@@ -11,19 +17,24 @@ function TweetBox() {
   const [tweetImage, setTweetImage] = useState("");
 
   const currentUser = useRecoilValue(currentUserState);
+  const uid = currentUser.uid;
 
   const sendTweet = async (e) => {
     await e.preventDefault();
+    const docRef = await doc(db, "user", uid);
+    const docSnap = await getDoc(docRef);
+    const userData = await docSnap.data();
+    console.log(docSnap.data());
     try {
       await addDoc(collection(db, "posts"), {
-        displayName: "プログラミングチュートリアル",
-        userName: "keita_karasawa",
+        displayName: userData.username,
+        userName: userData.username,
         verified: true,
         text: tweetMessage,
         avator: "http://shincode.info/wp-content/uploads/2021/12/icon.png",
         image: tweetImage,
         timestamp: serverTimestamp(),
-        sender: currentUser.uid,
+        sender: uid,
       });
       await console.log("Create success");
     } catch (e) {

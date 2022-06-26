@@ -16,8 +16,6 @@ function Header() {
       break;
   }
 
-  useEffect(() => {});
-
   return (
     <div className="timeline--header">
       <h2>{headerText}</h2>

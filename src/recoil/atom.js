@@ -7,6 +7,13 @@ export const currentUserState = atom({
   },
 });
 
+export const otherUserState = atom({
+  key: "otherUserState",
+  default: {
+    uid: "",
+  },
+});
+
 export const dialogState = atom({
   key: "dialogState",
   default: "",

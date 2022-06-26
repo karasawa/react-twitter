@@ -29,6 +29,7 @@
     font-size: 15px;
     margin-bottom: 5px;
     margin-top: 0;
+    cursor: pointer;
 }
 
 .post--badge {
@@ -46,4 +47,25 @@
 
 .post--avator {
     padding: 20px;
+}
+
+.chatBubbleOutline {
+    cursor: pointer;
+}
+
+.repeat {
+    cursor: pointer;
+}
+
+.favoriteBorder {
+    cursor: pointer;
+}
+
+.favorite {
+    cursor: pointer;
+    color: #fa8cd0;
+}
+
+.publishOutlined {
+    cursor: pointer;
 }

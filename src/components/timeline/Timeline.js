@@ -35,6 +35,7 @@ function Timeline() {
             text={post.text}
             avator={post.avator}
             image={post.image}
+            sender={post.sender}
           />
         ))}
       </FlipMove>

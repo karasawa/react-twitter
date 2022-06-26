@@ -14,6 +14,7 @@ function App() {
             <Route exact path="/" element={<Auth />} />
             <Route path="/home" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/home/otherUserProfile" element={<Profile />} />
           </Routes>
         </div>
       </RecoilRoot>
